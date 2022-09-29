@@ -1,0 +1,5 @@
+Time difference of 0.04899812 secs
+Time difference of 0.039994 secs
+Time difference of 0.04300308 secs
+Time difference of 0.05098701 secs
+Time difference of 0.05000091 secs
