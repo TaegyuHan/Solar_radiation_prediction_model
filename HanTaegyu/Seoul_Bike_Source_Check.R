@@ -263,12 +263,12 @@ b1 <- grid.arrange(h1_RF, h1_XGB, h1_Cubist, nrow = 1)
 
 ## 2-Stage Model Construction
 # version 2 요청
-setwd("C:\\Users\\johnn\\Dropbox\\문지훈\\Jihoon Moon\\CAU\\SCIE\\Cities\\")
-Data <- read.csv("C:\\Users\\Johnn\\Dropbox\\문지훈\\Jihoon Moon\\CAU\\SCIE\\Cities\\Bike_prepro_v2.csv")
+Data <- read.csv(".\\Bike_prepro_v2.csv")
 
 Dataset <- Data[,c(2:17)]
 ind_train <- round(2160)
-loopnum <- nrow(Dataset)-ind_train
+loopnum <- nrow(Dataset) - ind_train
+
 dataPred01 <- matrix(ncol=ncol(Dataset))
 dataPred02 <- matrix(ncol=ncol(Dataset))
 dataPred03 <- matrix(ncol=ncol(Dataset))
@@ -571,6 +571,5 @@ Results <- data.frame(Actual, Forecast, Error, R2_24, RMSE_24, MAE_24, NRMSE_24)
 write.csv(Results, "2-stage_ours_24.csv", row.names = FALSE)
 
 library(ggplot2)
-setwd("C:\\Users\\johnn\\Dropbox\\문지훈\\Jihoon Moon\\CAU\\SCIE\\Cities\\")
-dataset <- read.csv("C:\\Users\\johnn\\Dropbox\\문지훈\\Jihoon Moon\\CAU\\SCIE\\Cities\\CVRMSE.csv")
+dataset <- read.csv(".\\CVRMSE.csv")
 ggplot(dataset, aes(Points, Value))+geom_line(aes(color = Models))
