@@ -28,7 +28,8 @@ library(Cubist)
 
 # ---------------------------------------------------------------------------- #
 # 경로 설정하기
-GITGUB_GIT_FOLDER_PATH <- "C:\\Users\\gksxo\\Desktop\\Folder\\github\\Solar_radiation_prediction_model\\HanTaegyu"
+
+GITGUB_GIT_FOLDER_PATH <- "C:\\Users\\student\\Desktop\\solar\\Solar_radiation_prediction_model\\HanTaegyu\\professor"
 setwd(GITGUB_GIT_FOLDER_PATH)
 
 # 랜덤변수 고정
@@ -268,6 +269,7 @@ Data <- read.csv(".\\Bike_prepro_v2.csv")
 Dataset <- Data[,c(2:17)]
 ind_train <- round(2160)
 loopnum <- nrow(Dataset) - ind_train
+# [1] 6600
 
 dataPred01 <- matrix(ncol=ncol(Dataset))
 dataPred02 <- matrix(ncol=ncol(Dataset))
@@ -303,6 +305,13 @@ for(i in 1:loopnum)
   set.seed(1234)
   #  ranger_tscv <- ranger(Rented.Bike.Count~., data = Dataset[1:(ind_train-1+i),], num.trees = 128, mtry = 1, importance = "impurity")
   ranger_tscv <- ranger(Rented.Bike.Count~., data = Dataset[(ind_train-168+i):(ind_train-1+i),], num.trees = 128, mtry = 5, importance = "impurity")
+  i <- 1
+  paste0(
+    (ind_train - 168 + i) %>% as.character(), 
+    ":",
+    (ind_train - 1 + i) %>% as.character()
+  ) %>% print()
+  
   dataPred01[i]<-predict(ranger_tscv, data = testData[i,])
   dataPred02[i]<-predict(ranger_tscv, data = testData[i+1,])
   dataPred03[i]<-predict(ranger_tscv, data = testData[i+2,])
