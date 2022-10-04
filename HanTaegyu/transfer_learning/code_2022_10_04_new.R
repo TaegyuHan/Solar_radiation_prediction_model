@@ -148,6 +148,12 @@ for(i in 1:loopnum){
     Solar~., data = rbind(train.data, test.data)[nrow(train.data) -11 + i:nrow(train.data) -1 + i], num.tree = 128, mtry = 2, importance = "impurity"
   )
   
+  # method 1
+  # for(idx in 1:data.pred %>% length()){
+  #   get(data.pred[idx])[i] <- predict(model.ranger, data = test.data[i+idx-1,])
+  # }
+  
+  # method 2
   data.pred01[i] <- predict(model.ranger, data = test.data[i,])
   data.pred02[i] <- predict(model.ranger, data = test.data[i+1,])
   data.pred03[i] <- predict(model.ranger, data = test.data[i+2,])
@@ -160,3 +166,4 @@ for(i in 1:loopnum){
   data.pred10[i] <- predict(model.ranger, data = test.data[i+9,])
   data.pred11[i] <- predict(model.ranger, data = test.data[i+10,])
 }
+
