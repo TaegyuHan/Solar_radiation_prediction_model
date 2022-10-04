@@ -3,6 +3,8 @@
 # 
 # --------------------------------------------- #
 rm(list = ls())
+
+pc_number <- 1
 # --------------------------------------------- #
 # package
 # install.packages("ranger")
@@ -28,7 +30,7 @@ library(stringr)
 # 데이터 불러오기
 
 # 프로젝트 경로
-DEFAULT_PATH <- "D:\\githubManagement\\Solar_radiation_prediction_model\\HanTaegyu\\transfer_learning"
+DEFAULT_PATH <- "C:\\Users\\student\\Desktop\\solar\\Solar_radiation_prediction_model\\HanTaegyu\\transfer_learning"
 setwd(DEFAULT_PATH)
 getwd()
 # [1] "D:/githubManagement/Solar_radiation_prediction_model/HanTaegyu/transfer_learning"
@@ -138,14 +140,59 @@ data.pred <- c(
   'data.pred09', 'data.pred10', 'data.pred11'
 )
 
-for(idx in 1:data.pred %>% length()){
-  assign(data.pred[idx], matrix(ncol = input_Value_cnt))
+
+
+loopnum.cut.11 <- loopnum - 11
+
+for(idx in (1:(data.pred %>% length()))){
+  assign(data.pred[idx], numeric(loopnum.cut.11))
+}
+
+
+# 데이터 나누기
+multi_pc_data_index <- split(seq(loopnum.cut.11), ceiling(seq(loopnum.cut.11)/loopnum.cut.11 %/% 6))
+
+for (i in 1:6) {
+  paste0(
+    multi_pc_data_index[[i]] %>% min() %>% as.character(),
+    ":",
+    multi_pc_data_index[[i]] %>% max() %>% as.character(),
+    "     PC",
+    i
+  ) %>% print()
+}
+
+
+# [1] "1:1336     PC1"
+# [1] "1337:2672     PC2"
+# [1] "2673:4008     PC3"
+# [1] "4009:5344     PC4"
+# [1] "5345:6680     PC5"
+# [1] "6681:8016     PC6"
+
+if (pc_number == 1) {
+  run_seq <- 1:1336  
+} else if (pc_number == 2) {
+  run_seq <- 1337:2672  
+} else if (pc_number == 3) {
+  run_seq <- 2673:4008
+} else if (pc_number == 4) {
+  run_seq <- 4009:5344  
+} else if (pc_number == 5) {
+  run_seq <- 5345:6680
+} else if (pc_number == 5) {
+  run_seq <- 6681:8016
 }
 
 # 11시점을 예측하기 위해서 11 만큼만 봐줌
-for(i in 1:loopnum){
+# loopnum
+for(i in 1:1){
+  i %>% print()
   model.ranger <- ranger(
-    Solar~., data = rbind(train.data, test.data)[nrow(train.data) -11 + i:nrow(train.data) -1 + i], num.tree = 128, mtry = 2, importance = "impurity"
+    Solar~., data = rbind(train.data, rbind(train.data, test.data[i:(i + 10),])), 
+    num.tree = 128, 
+    mtry = 2, 
+    importance = "impurity"
   )
   
   # method 1
@@ -154,16 +201,42 @@ for(i in 1:loopnum){
   # }
   
   # method 2
-  data.pred01[i] <- predict(model.ranger, data = test.data[i,])
-  data.pred02[i] <- predict(model.ranger, data = test.data[i+1,])
-  data.pred03[i] <- predict(model.ranger, data = test.data[i+2,])
-  data.pred04[i] <- predict(model.ranger, data = test.data[i+3,])
-  data.pred05[i] <- predict(model.ranger, data = test.data[i+4,])
-  data.pred06[i] <- predict(model.ranger, data = test.data[i+5,])
-  data.pred07[i] <- predict(model.ranger, data = test.data[i+6,])
-  data.pred08[i] <- predict(model.ranger, data = test.data[i+7,])
-  data.pred09[i] <- predict(model.ranger, data = test.data[i+8,])
-  data.pred10[i] <- predict(model.ranger, data = test.data[i+9,])
-  data.pred11[i] <- predict(model.ranger, data = test.data[i+10,])
+  data.pred01[i] <- predict(model.ranger, data = test.data[i + 11,]) %>% as.numeric()
+  data.pred02[i] <- predict(model.ranger, data = test.data[i+ 12,]) %>% as.numeric()
+  data.pred03[i] <- predict(model.ranger, data = test.data[i+ 13,]) %>% as.numeric()
+  data.pred04[i] <- predict(model.ranger, data = test.data[i+ 14,]) %>% as.numeric()
+  data.pred05[i] <- predict(model.ranger, data = test.data[i+ 15,]) %>% as.numeric()
+  data.pred06[i] <- predict(model.ranger, data = test.data[i+ 16,]) %>% as.numeric()
+  data.pred07[i] <- predict(model.ranger, data = test.data[i+ 17,]) %>% as.numeric()
+  data.pred08[i] <- predict(model.ranger, data = test.data[i+ 18,]) %>% as.numeric()
+  data.pred09[i] <- predict(model.ranger, data = test.data[i+ 19,]) %>% as.numeric()
+  data.pred10[i] <- predict(model.ranger, data = test.data[i+ 20,]) %>% as.numeric()
+  data.pred11[i] <- predict(model.ranger, data = test.data[i+ 21,]) %>% as.numeric()
 }
 
+# 결과 저장
+
+save(data.pred01, file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "01", ".Rdata"))
+save(data.pred02, file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "02", ".Rdata"))
+save(data.pred03, file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "03", ".Rdata"))
+save(data.pred04, file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "04", ".Rdata"))
+save(data.pred05, file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "05", ".Rdata"))
+save(data.pred06, file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "06", ".Rdata"))
+save(data.pred07, file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "07", ".Rdata"))
+save(data.pred08, file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "08", ".Rdata"))
+save(data.pred09, file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "09", ".Rdata"))
+save(data.pred10, file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "10", ".Rdata"))
+save(data.pred11, file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "11", ".Rdata"))
+
+
+# load(file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "01", ".Rdata"))
+# load(file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "02", ".Rdata"))
+# load(file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "03", ".Rdata"))
+# load(file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "04", ".Rdata"))
+# load(file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "05", ".Rdata"))
+# load(file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "06", ".Rdata"))
+# load(file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "07", ".Rdata"))
+# load(file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "08", ".Rdata"))
+# load(file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "09", ".Rdata"))
+# load(file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "10", ".Rdata"))
+# load(file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "11", ".Rdata"))
