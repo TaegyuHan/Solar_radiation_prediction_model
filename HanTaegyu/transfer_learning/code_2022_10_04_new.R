@@ -4,7 +4,7 @@
 # --------------------------------------------- #
 rm(list = ls())
 
-pc_number <- 1
+pc_number <- 2
 # --------------------------------------------- #
 # package
 # install.packages("ranger")
@@ -186,7 +186,7 @@ if (pc_number == 1) {
 
 # 11시점을 예측하기 위해서 11 만큼만 봐줌
 # loopnum
-for(i in 1:1){
+for(i in run_seq){
   i %>% print()
   model.ranger <- ranger(
     Solar~., data = rbind(train.data, rbind(train.data, test.data[i:(i + 10),])), 
