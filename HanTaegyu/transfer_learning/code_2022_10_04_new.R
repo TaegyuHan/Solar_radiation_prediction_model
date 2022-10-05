@@ -251,8 +251,7 @@ if (pc_number == 1) {
 # [1] 7953
 
 # 11시점을 예측하기 위해서 11 만큼만 봐줌
-# for(i in run_seq){
-for(i in 1:1){
+for(i in run_seq){
   i %>% print()
   model.ranger <- ranger(
     Solar~., data = rbind(train.data, rbind(train.data, test.data[i:(i + 10),])),
