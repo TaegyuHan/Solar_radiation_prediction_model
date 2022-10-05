@@ -30,7 +30,8 @@ library(stringr)
 # 데이터 불러오기
 
 # 프로젝트 경로
-DEFAULT_PATH <- "D:/githubManagement/Solar_radiation_prediction_model/HanTaegyu/transfer_learning"
+
+DEFAULT_PATH <- "C:\\Users\\student\\Desktop\\solar\\Solar_radiation_prediction_model\\HanTaegyu\\transfer_learning"
 setwd(DEFAULT_PATH)
 getwd()
 # [1] "D:/githubManagement/Solar_radiation_prediction_model/HanTaegyu/transfer_learning"
@@ -242,6 +243,7 @@ for(i in run_seq){
 # load(file = paste0(".\\predict", "\\", "PC", pc_number %>% as.character(), "_predict", "11", ".Rdata"))
 
 # 각각의 번호 별로 나눠서 저장하기
+
 result01 <- data.frame()
 result02 <- data.frame()
 result03 <- data.frame()
@@ -312,4 +314,186 @@ for(i in 1:6){
   }
   
 }
+
+names(result01) %>% "Solar"
+names(result02) %>% "Solar"
+names(result03) %>% "Solar"
+names(result04) %>% "Solar"
+names(result05) %>% "Solar"
+names(result06) %>% "Solar"
+names(result07) %>% "Solar"
+names(result08) %>% "Solar"
+names(result09) %>% "Solar"
+names(result10) %>% "Solar"
+names(result11) %>% "Solar"
+
+nameresult01 %>% nrow()
+nameresult02 %>% nrow()
+nameresult03 %>% nrow()
+nameresult04 %>% nrow()
+nameresult05 %>% nrow()
+nameresult06 %>% nrow()
+nameresult07 %>% nrow()
+nameresult08 %>% nrow()
+nameresult09 %>% nrow()
+nameresult10 %>% nrow()
+nameresult11 %>% nrow()
+# > result01 %>% nrow()
+# [1] 8016
+# > result02 %>% nrow()
+# [1] 8016
+# > result03 %>% nrow()
+# [1] 8016
+# > result04 %>% nrow()
+# [1] 8016
+# > result05 %>% nrow()
+# [1] 8016
+# > result06 %>% nrow()
+# [1] 8016
+# > result07 %>% nrow()
+# [1] 8016
+# > result08 %>% nrow()
+# [1] 8016
+# > result09 %>% nrow()
+# [1] 8016
+# > result10 %>% nrow()
+# [1] 8016
+# > result11 %>% nrow()
+# [1] 8016
+
+
+# 결과 저장
+rsq <- function (x, y) cor(x, y) ^ 2
+
+for (i in 1:11) {
+  paste0(
+  "Actual <- as.numeric(test.data$Solar[1:8007])\n",
+  "Forecast <- as.numeric(result",
+  i,
+  "$Solar[1:8007])\n",
+  "Error <- Actual - Forecast\n",
+  "R2_24 <- rsq(Actual, Forecast)\n",
+  "RMSE_24 <- sqrt(mean(Error^2))\n",
+  "MAE_24 <- mean(abs(Error))\n",
+  "NRMSE_24 <- (RMSE_24/mean(Actual))*100\n",
+  "Results <- data.frame(Actual, Forecast, Error, R2_24, RMSE_24, MAE_24, NRMSE_24)\n",
+  'write.csv(Results, "',
+  i,
+  "_result.csv",
+  '", row.names = FALSE)\n',
+  "\n"
+  ) %>% cat()
+}
+
+
+Actual <- as.numeric(test.data$Solar[1:8007])
+Forecast <- as.numeric(result01$Solar[1:8007])
+Error <- Actual - Forecast
+R2_24 <- rsq(Actual, Forecast)
+RMSE_24 <- sqrt(mean(Error^2))
+MAE_24 <- mean(abs(Error))
+NRMSE_24 <- (RMSE_24/mean(Actual))*100
+Results <- data.frame(Actual, Forecast, Error, R2_24, RMSE_24, MAE_24, NRMSE_24)
+write.csv(Results, "1_result.csv", row.names = FALSE)
+
+Actual <- as.numeric(test.data$Solar[1:8007])
+Forecast <- as.numeric(result02$Solar[1:8007])
+Error <- Actual - Forecast
+R2_24 <- rsq(Actual, Forecast)
+RMSE_24 <- sqrt(mean(Error^2))
+MAE_24 <- mean(abs(Error))
+NRMSE_24 <- (RMSE_24/mean(Actual))*100
+Results <- data.frame(Actual, Forecast, Error, R2_24, RMSE_24, MAE_24, NRMSE_24)
+write.csv(Results, "2_result.csv", row.names = FALSE)
+
+Actual <- as.numeric(test.data$Solar[1:8007])
+Forecast <- as.numeric(result03$Solar[1:8007])
+Error <- Actual - Forecast
+R2_24 <- rsq(Actual, Forecast)
+RMSE_24 <- sqrt(mean(Error^2))
+MAE_24 <- mean(abs(Error))
+NRMSE_24 <- (RMSE_24/mean(Actual))*100
+Results <- data.frame(Actual, Forecast, Error, R2_24, RMSE_24, MAE_24, NRMSE_24)
+write.csv(Results, "3_result.csv", row.names = FALSE)
+
+Actual <- as.numeric(test.data$Solar[1:8007])
+Forecast <- as.numeric(result04$Solar[1:8007])
+Error <- Actual - Forecast
+R2_24 <- rsq(Actual, Forecast)
+RMSE_24 <- sqrt(mean(Error^2))
+MAE_24 <- mean(abs(Error))
+NRMSE_24 <- (RMSE_24/mean(Actual))*100
+Results <- data.frame(Actual, Forecast, Error, R2_24, RMSE_24, MAE_24, NRMSE_24)
+write.csv(Results, "4_result.csv", row.names = FALSE)
+
+Actual <- as.numeric(test.data$Solar[1:8007])
+Forecast <- as.numeric(result05$Solar[1:8007])
+Error <- Actual - Forecast
+R2_24 <- rsq(Actual, Forecast)
+RMSE_24 <- sqrt(mean(Error^2))
+MAE_24 <- mean(abs(Error))
+NRMSE_24 <- (RMSE_24/mean(Actual))*100
+Results <- data.frame(Actual, Forecast, Error, R2_24, RMSE_24, MAE_24, NRMSE_24)
+write.csv(Results, "5_result.csv", row.names = FALSE)
+
+Actual <- as.numeric(test.data$Solar[1:8007])
+Forecast <- as.numeric(result06$Solar[1:8007])
+Error <- Actual - Forecast
+R2_24 <- rsq(Actual, Forecast)
+RMSE_24 <- sqrt(mean(Error^2))
+MAE_24 <- mean(abs(Error))
+NRMSE_24 <- (RMSE_24/mean(Actual))*100
+Results <- data.frame(Actual, Forecast, Error, R2_24, RMSE_24, MAE_24, NRMSE_24)
+write.csv(Results, "6_result.csv", row.names = FALSE)
+
+Actual <- as.numeric(test.data$Solar[1:8007])
+Forecast <- as.numeric(result07$Solar[1:8007])
+Error <- Actual - Forecast
+R2_24 <- rsq(Actual, Forecast)
+RMSE_24 <- sqrt(mean(Error^2))
+MAE_24 <- mean(abs(Error))
+NRMSE_24 <- (RMSE_24/mean(Actual))*100
+Results <- data.frame(Actual, Forecast, Error, R2_24, RMSE_24, MAE_24, NRMSE_24)
+write.csv(Results, "7_result.csv", row.names = FALSE)
+
+Actual <- as.numeric(test.data$Solar[1:8007])
+Forecast <- as.numeric(result08$Solar[1:8007])
+Error <- Actual - Forecast
+R2_24 <- rsq(Actual, Forecast)
+RMSE_24 <- sqrt(mean(Error^2))
+MAE_24 <- mean(abs(Error))
+NRMSE_24 <- (RMSE_24/mean(Actual))*100
+Results <- data.frame(Actual, Forecast, Error, R2_24, RMSE_24, MAE_24, NRMSE_24)
+write.csv(Results, "8_result.csv", row.names = FALSE)
+
+Actual <- as.numeric(test.data$Solar[1:8007])
+Forecast <- as.numeric(result09$Solar[1:8007])
+Error <- Actual - Forecast
+R2_24 <- rsq(Actual, Forecast)
+RMSE_24 <- sqrt(mean(Error^2))
+MAE_24 <- mean(abs(Error))
+NRMSE_24 <- (RMSE_24/mean(Actual))*100
+Results <- data.frame(Actual, Forecast, Error, R2_24, RMSE_24, MAE_24, NRMSE_24)
+write.csv(Results, "9_result.csv", row.names = FALSE)
+
+Actual <- as.numeric(test.data$Solar[1:8007])
+Forecast <- as.numeric(result10$Solar[1:8007])
+Error <- Actual - Forecast
+R2_24 <- rsq(Actual, Forecast)
+RMSE_24 <- sqrt(mean(Error^2))
+MAE_24 <- mean(abs(Error))
+NRMSE_24 <- (RMSE_24/mean(Actual))*100
+Results <- data.frame(Actual, Forecast, Error, R2_24, RMSE_24, MAE_24, NRMSE_24)
+write.csv(Results, "10_result.csv", row.names = FALSE)
+
+Actual <- as.numeric(test.data$Solar[1:8007])
+Forecast <- as.numeric(result11$Solar[1:8007])
+Error <- Actual - Forecast
+R2_24 <- rsq(Actual, Forecast)
+RMSE_24 <- sqrt(mean(Error^2))
+MAE_24 <- mean(abs(Error))
+NRMSE_24 <- (RMSE_24/mean(Actual))*100
+Results <- data.frame(Actual, Forecast, Error, R2_24, RMSE_24, MAE_24, NRMSE_24)
+write.csv(Results, "11_result.csv", row.names = FALSE)
+
 
