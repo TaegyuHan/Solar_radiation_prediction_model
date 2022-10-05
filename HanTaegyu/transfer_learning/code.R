@@ -23,7 +23,7 @@ library(future.apply)
 # 데이터 불러오기
 
 # 프로젝트 경로
-DEFAULT_PATH <- "C:\\Users\\student\\Desktop\\solar\\Solar_radiation_prediction_model\\HanTaegyu\\transfer_learning"
+DEFAULT_PATH <- "C:\\solar\\Solar_radiation_prediction_model\\HanTaegyu\\transfer_learning"
 setwd(DEFAULT_PATH)
 getwd()
 # [1] "C:/Users/student/Desktop/solar/Solar_radiation_prediction_model/HanTaegyu/transfer_learning"
@@ -140,7 +140,6 @@ custom.predict <- function(idx, jdx) {
 term <- round((test.data %>% nrow() - 11) / 6)
 1: term
 term + 1: 
-
 
 
 
